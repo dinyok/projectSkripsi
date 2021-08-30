@@ -106,8 +106,6 @@ https://templatemo.com/tm-538-digital-trend
 
           <div class="col-lg-4 mx-lg-auto text-center col-md-8 col-12" data-aos="fade-up" data-aos-delay="400">
             <p class="copyright-text">Copyright &copy; 2021 DoctorScanner
-            <!-- <br>
-            <a rel="nofollow noopener" href="https://templatemo.com">Design: TemplateMo</a> -->
             </p>
           </div>
 
