@@ -51,12 +51,12 @@ class DocumentController extends Controller
         $this->validate($request, [
 			'customFile' => 'required|file|image|mimes:jpeg,png,jpg|max:2048'
 		]);
- 
+
 		// menyimpan data file yang diupload ke variabel $file
 		$file = $request->file('customFile');
- 
+
 		$nama_file = time()."_".$file->getClientOriginalName();
- 
+
       	        // isi dengan nama folder tempat kemana file diupload
 		$tujuan_upload = 'uploadFile';
 		$file->move($tujuan_upload,$nama_file);
@@ -68,8 +68,7 @@ class DocumentController extends Controller
 
         $documents = Document::all()->where('filename', $nama_file)->first();
 
-        shell_exec("python python\ocr.py ".$nama_file." ".Auth::user()->user_id." ".$documents->document_id." 2>&1");
-        
+        $output = shell_exec("python python/ocr.py ".$nama_file." ".Auth::user()->user_id." ".$documents->document_id." 2>&1");
 		return redirect()->back();
     }
 
@@ -85,7 +84,7 @@ class DocumentController extends Controller
         $documents = Document::withTrashed()->where('user_id', $id)->get();
         return view('blog' , ['documents' => $documents]);
     }
-    
+
     public function show($id)
     {
         $file = Document::find($id);
@@ -93,8 +92,8 @@ class DocumentController extends Controller
 
         // File::delete('uploadFile/'.$file->filename);
         // dd($dl);
-        // dd($file); 
-        
+        // dd($file);
+
         $filepath = public_path('uploadFile/').$file->filename;
         return Response::download($filepath);
     }
